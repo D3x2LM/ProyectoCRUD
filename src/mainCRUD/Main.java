@@ -9,8 +9,15 @@ import Modelo.ConsultasProductos;
 import Modelo.Productos;
 import Vista.frmProductos;
 
+/**
+ *
+ * @author USUARIO
+ */
 public class Main {
 
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         Productos modelo = new Productos();
         ConsultasProductos consulta = new ConsultasProductos();
@@ -20,7 +27,6 @@ public class Main {
         ctrl.iniciar();
         vista.setVisible(true);
     }
-
-}
-
+    }
+    
 

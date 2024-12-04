@@ -4,6 +4,9 @@
  */
 package Controlador;
 
+import Modelo.Clientes;
+import Modelo.ConsultasClientes;
+import Vista.frmClientes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +23,14 @@ public class ClienteController {
     }
 
     public ClienteController(Connection conexion) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public ClienteController(Clientes modelo, ConsultasClientes consulta, frmClientes vista) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public ClienteController(Clientes modelo, frmClientes vista, ConsultasClientes consulta) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -98,5 +109,9 @@ public class ClienteController {
             JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage());
             return null;
         }
+    }
+
+    public void iniciar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
