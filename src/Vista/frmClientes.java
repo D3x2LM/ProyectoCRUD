@@ -4,17 +4,30 @@
  */
 package Vista;
 
+import Controlador.ClienteController;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
  */
 public class frmClientes extends javax.swing.JFrame {
 
+    private Connection conexion;
+    private ClienteController controlador;
+
     /**
      * Creates new form frmClientes
      */
     public frmClientes() {
         initComponents();
+        this.conexion = conexion;
+        this.controlador = new ClienteController(conexion);
+    }
+
+    public frmClientes(com.sun.jdi.connect.spi.Connection conexion) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -34,7 +47,7 @@ public class frmClientes extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
-        txtDrescipcion = new javax.swing.JTextField();
+        txtDrescripcion = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
@@ -86,7 +99,7 @@ public class frmClientes extends javax.swing.JFrame {
         jLabel5.setText("Dirección");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, -1, -1));
         getContentPane().add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 60, -1));
-        getContentPane().add(txtDrescipcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 210, -1));
+        getContentPane().add(txtDrescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 210, -1));
         getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 220, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
@@ -171,27 +184,50 @@ public class frmClientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        // TODO add your handling code here:
+        controlador.limpiarCampos(txtID, txtDrescripcion, txtRUC, txtTelefono, txtDireccion);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        controlador.guardarCliente(
+                txtID.getText(),
+                txtDrescripcion.getText(),
+                txtRUC.getText(),
+                txtTelefono.getText(),
+                txtDireccion.getText()
+        );
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        controlador.modificarCliente(
+                txtID.getText(),
+                txtDrescripcion.getText(),
+                txtRUC.getText(),
+                txtTelefono.getText(),
+                txtDireccion.getText()
+        );
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        controlador.eliminarCliente(txtID.getText());
+        btnLimpiarActionPerformed(evt);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        ResultSet rs = (ResultSet) controlador.buscarCliente(txtID.getText());
+        if (rs.next()) {
+            txtDrescripcion.setText(rs.getString("descripcion"));
+            txtRUC.setText(rs.getString("RUC"));
+            txtTelefono.setText(rs.getString("telefono"));
+            txtDireccion.setText(rs.getString("direccion"));
+        } else {
+            JOptionPane.showMessageDialog(this, "Cliente no encontrado");
+            btnLimpiarActionPerformed(evt);
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        btnLimpiarActionPerformed(evt);
+        dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
@@ -248,9 +284,39 @@ public class frmClientes extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     public javax.swing.JTextField txtDireccion;
-    public javax.swing.JTextField txtDrescipcion;
+    public javax.swing.JTextField txtDrescripcion;
     public javax.swing.JTextField txtID;
     public javax.swing.JTextField txtRUC;
     public javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    private static class controlador {
+
+        public controlador() {
+        }
+    }
+
+    private static class ResultSet {
+
+        public ResultSet() {
+        }
+
+        private boolean next() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+        private String getString(String descripcion) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+    }
+
+    private static class SQLException {
+
+        public SQLException() {
+        }
+
+        private String getMessage() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+    }
 }
