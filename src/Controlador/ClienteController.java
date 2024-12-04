@@ -4,9 +4,6 @@
  */
 package Controlador;
 
-import Modelo.Clientes;
-import Modelo.ConsultasClientes;
-import Vista.frmClientes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,20 +15,12 @@ public class ClienteController {
 
     private Connection conexion;
 
-    public ClienteController(com.sun.jdi.connect.spi.Connection conexion) {
-        this.conexion = (Connection) conexion;
-    }
-
+    // Constructor corregido - ya no lanza la excepción
     public ClienteController(Connection conexion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public ClienteController(Clientes modelo, ConsultasClientes consulta, frmClientes vista) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public ClienteController(Clientes modelo, frmClientes vista, ConsultasClientes consulta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (conexion == null) {
+            throw new IllegalArgumentException("La conexión no puede ser nula");
+        }
+        this.conexion = conexion;
     }
 
     // Método para limpiar los campos
@@ -75,6 +64,8 @@ public class ClienteController {
             int resultado = stmt.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Cliente modificado exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el cliente para modificar");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al modificar: " + e.getMessage());
@@ -91,6 +82,8 @@ public class ClienteController {
             int resultado = stmt.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el cliente para eliminar");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar: " + e.getMessage());
@@ -109,9 +102,5 @@ public class ClienteController {
             JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage());
             return null;
         }
-    }
-
-    public void iniciar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
